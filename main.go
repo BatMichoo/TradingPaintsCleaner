@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -10,6 +11,8 @@ import (
 var IDs []string
 
 func main() {
+	fmt.Println("Welcome!")
+	fmt.Println()
 	envIds := os.Getenv("iRacing_IDS")
 
 	if envIds == "" {
@@ -19,6 +22,21 @@ func main() {
 
 	IDs = strings.Split(envIds, ",")
 
+	fmt.Printf("Will look for the following IDs: %v\n", strings.Join(IDs, ", "))
+	fmt.Println()
+	fmt.Println("Continue? Enter N to exit.")
+
+	reader := bufio.NewReader(os.Stdin)
+	readLineArray, _, _ := reader.ReadLine()
+
+	response := string(readLineArray)
+
+	if strings.ToLower(response) == "n" {
+		os.Exit(0)
+	}
+
+	fmt.Println()
+
 	documentsFolderPath, err := os.UserHomeDir()
 
 	if err != nil {
@@ -27,8 +45,23 @@ func main() {
 
 	paintsFolder := filepath.Join(documentsFolderPath, "/Documents/iRacing/paint")
 
+	fmt.Println("Deleting unnecessary paints.")
+	fmt.Println()
+
 	filesDeleted, diskSpaceFreed := iterateOverFiles(paintsFolder)
-	fmt.Printf("Files deleted: %v \nSpace freed: %v", filesDeleted, formatSpaceFreed(diskSpaceFreed))
+
+	fmt.Printf("Files deleted: %v \nSpace freed: %v\n", filesDeleted, formatSpaceFreed(diskSpaceFreed))
+	fmt.Println()
+
+	fmt.Println("Press any key to close.")
+
+	readLineArray, _, _ = reader.ReadLine()
+
+	response = string(readLineArray)
+
+	if response != "" || response == "" {
+		os.Exit(0)
+	}
 }
 
 func formatSpaceFreed(spaceFreed int64) string {
