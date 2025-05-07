@@ -10,17 +10,11 @@ This Go program helps you manage your iRacing paint files by automatically delet
 
 ## Getting Started
 
-### Prerequisites
-
-- **Go Installation:** Make sure you have Go installed on your system. You can download it from the [official Go website](https://go.dev/dl/).
-
 ### Setup
 
-1.  **Clone the Repository (or create the Go file):** If you have the code in a Git repository, clone it to your local machine. Otherwise, create a new Go file (e.g., `paint_cleaner.go`) and paste the provided code into it.
+1.  **Download the latest release or clone the Repository (or create the Go file):** If you have the code in a Git repository, clone it to your local machine. Otherwise, create a new Go file (e.g., `paint_cleaner.go`) and paste the provided code into it.
 
 2.  **Set the `iRacing_IDS` Environment Variable:** The program reads a comma-separated list of identifiers from the `iRacing_IDS` environment variable. You need to set this variable on your system.
-
-    **For Windows:**
 
     You can set environment variables using the Command Prompt (for the current session) or through the `setx` command or System Properties (for persistent settings).
 
@@ -54,29 +48,6 @@ This Go program helps you manage your iRacing paint files by automatically delet
       3.  In the "User variables" or "System variables" section, click "New...".
       4.  Enter `iRacing_IDS` as the "Variable name" and your comma-separated list of identifiers (e.g., `123456,234567`) as the "Variable value".
       5.  Click "OK" on all dialogs. You might need to restart your terminal or applications for the changes to take effect.
-
-    **For Linux:**
-
-    You can set environment variables using the `export` command (for the current session) or by modifying your shell configuration files (for persistent settings).
-
-    - **Using `export` (temporary):**
-      Open your terminal and run:
-
-      ```bash
-      export iRacing_IDS="123456,234567"
-      ```
-
-      This setting will only last for the current terminal session.
-
-    - **Modifying Shell Configuration (permanent):**
-      You can add the `export` command to your shell's configuration file (e.g., `.bashrc`, `.zshrc`).
-      1.  Open the configuration file in a text editor (e.g., `nano ~/.bashrc`).
-      2.  Add the line:
-          ```bash
-          export iRacing_IDS="123456,234567"
-          ```
-      3.  Save the file and close the editor.
-      4.  Apply the changes by running `source ~/.bashrc` or restarting your terminal.
 
     **Important:** Only files whose names _do not_ contain any of these identifiers will be deleted. Be specific with your identifiers to avoid accidentally deleting files you want to keep.
 
