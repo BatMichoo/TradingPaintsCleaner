@@ -5,20 +5,17 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/joho/godotenv"
 )
 
 var IDs []string
 
 func main() {
-	err := godotenv.Load()
+	envIds := os.Getenv("iRacing_IDS")
 
-	if err != nil {
-		fmt.Println("Error loading .env file.")
+	if envIds == "" {
+		fmt.Println("Couldn't not find specified IDs")
+		return
 	}
-
-	envIds := os.Getenv("IDS")
 
 	IDs = strings.Split(envIds, ",")
 

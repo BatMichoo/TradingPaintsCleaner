@@ -1,41 +1,88 @@
 # iRacing Paint File Cleaner
 
-This Go program helps you manage your iRacing paint files by automatically deleting files that do **not** contain specific identifiers defined in a `.env` file. This is useful for keeping only your favorite or frequently used paint schemes and freeing up disk space.
+This Go program helps you manage your iRacing paint files by automatically deleting files that do **not** contain specific identifiers. It reads these identifiers from an environment variable, allowing you to keep only your favorite or frequently used paint schemes and free up disk space.
 
 ## Features
 
-* **Configuration via `.env`:** Define the ID of your iRacing profile and/or team IDs you want to keep in a simple `.env` file.
-* **Identifier-Based Deletion:** Files whose names do not contain any of the specified identifiers will be deleted.
-* **Disk Space Reporting:** After the process, the program reports the number of files deleted and the amount of disk space freed.
+- **Configuration via Environment Variable:** The program uses an environment variable to determine which paint files to keep.
+- **Identifier-Based Deletion:** Files whose names do not contain any of the specified identifiers will be deleted.
+- **Disk Space Reporting:** After the process, the program reports the number of files deleted and the amount of disk space freed.
 
 ## Getting Started
 
 ### Prerequisites
 
-* **Go Installation:** Make sure you have Go installed on your system. You can download it from the [official Go website](https://go.dev/dl/).
-* **`godotenv` Library:** This project uses the `github.com/joho/godotenv` library to load environment variables from a `.env` file. You can install it using Go modules:
-
-    ```bash
-    go get [github.com/joho/godotenv](https://github.com/joho/godotenv)
-    ```
+- **Go Installation:** Make sure you have Go installed on your system. You can download it from the [official Go website](https://go.dev/dl/).
 
 ### Setup
 
 1.  **Clone the Repository (or create the Go file):** If you have the code in a Git repository, clone it to your local machine. Otherwise, create a new Go file (e.g., `paint_cleaner.go`) and paste the provided code into it.
 
-2.  **Create a `.env` File:** In the same directory as your Go source file, create a file named `.env`.
+2.  **Set the `iRacing_IDS` Environment Variable:** The program reads a comma-separated list of identifiers from the `iRacing_IDS` environment variable. You need to set this variable on your system.
 
-3.  **Define Your Identifiers:** Open the `.env` file and add a line defining the `IDS` variable. This variable should contain a comma-separated list of strings that you want to **keep** in your iRacing `paint` folder. For example your `.env` file might look like this:
+    **For Windows:**
 
-    ```
-    IDS=123456,234567
-    ```
+    You can set environment variables using the Command Prompt (for the current session) or through the `setx` command or System Properties (for persistent settings).
 
-    **Important:** Only files whose names *do not* contain any of these identifiers will be deleted. Be specific with your identifiers to avoid accidentally deleting files you want to keep.
+    - **Using Command Prompt (temporary):**
+      Open Command Prompt and run:
+
+      ```cmd
+      set iRacing_IDS=123456,234567
+      ```
+
+      This setting will only last for the current command prompt session.
+
+    - **Using `setx` (persistent user or system):**
+      Open Command Prompt. For user variables:
+
+      ```cmd
+      setx iRacing_IDS "123456,234567"
+      ```
+
+      For system variables (requires Administrator privileges):
+
+      ```cmd
+      setx /m iRacing_IDS "123456,234567"
+      ```
+
+      Changes to user variables will apply to future command prompt/PowerShell sessions and applications. System variable changes might require a system restart.
+
+    - **Using System Properties (permanent):**
+      1.  Press `Win + R`, type `sysdm.cpl`, and press Enter.
+      2.  Go to the "Advanced" tab and click "Environment Variables...".
+      3.  In the "User variables" or "System variables" section, click "New...".
+      4.  Enter `iRacing_IDS` as the "Variable name" and your comma-separated list of identifiers (e.g., `123456,234567`) as the "Variable value".
+      5.  Click "OK" on all dialogs. You might need to restart your terminal or applications for the changes to take effect.
+
+    **For Linux:**
+
+    You can set environment variables using the `export` command (for the current session) or by modifying your shell configuration files (for persistent settings).
+
+    - **Using `export` (temporary):**
+      Open your terminal and run:
+
+      ```bash
+      export iRacing_IDS="123456,234567"
+      ```
+
+      This setting will only last for the current terminal session.
+
+    - **Modifying Shell Configuration (permanent):**
+      You can add the `export` command to your shell's configuration file (e.g., `.bashrc`, `.zshrc`).
+      1.  Open the configuration file in a text editor (e.g., `nano ~/.bashrc`).
+      2.  Add the line:
+          ```bash
+          export iRacing_IDS="123456,234567"
+          ```
+      3.  Save the file and close the editor.
+      4.  Apply the changes by running `source ~/.bashrc` or restarting your terminal.
+
+    **Important:** Only files whose names _do not_ contain any of these identifiers will be deleted. Be specific with your identifiers to avoid accidentally deleting files you want to keep.
 
 ### Running the Program
 
-1.  **Navigate to the Project Directory:** Open your terminal or command prompt and navigate to the directory where you saved the Go file and the `.env` file.
+1.  **Navigate to the Project Directory:** Open your terminal or command prompt and navigate to the directory where you saved the Go file.
 
 2.  **Run the Go Program:** Execute the following command:
 
@@ -44,16 +91,16 @@ This Go program helps you manage your iRacing paint files by automatically delet
     ```
 
     The program will then:
-    * Attempt to load the `.env` file.
-    * Read the `IDS` environment variable.
-    * Locate your iRacing `paint` folder (usually in `~/Documents/iRacing/paint`).
-    * Iterate through the files and subdirectories within the `paint` folder.
-    * Delete any files whose names do not contain any of the identifiers specified in the `IDS` variable.
-    * Print the number of deleted files and the amount of disk space freed.
+
+    - Read the `IDS` environment variable.
+    - Locate your iRacing `paint` folder (usually in `~/Documents/iRacing/paint`).
+    - Iterate through the files and subdirectories within the `paint` folder.
+    - Delete any files whose names do not contain any of the identifiers specified in the `IDS` variable.
+    - Print the number of deleted files and the amount of disk space freed.
 
 ## Important Notes
 
-* **No Undo Functionality:** This program permanently deletes files. There is no built-in undo functionality. Trading Paints does download all the missing paints when joining a server.
+- **No Undo Functionality:** This program permanently deletes files. There is no built-in undo functionality. Trading Paints does download all the missing paints when joining a server.
 
 ## Contributing
 
