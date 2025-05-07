@@ -92,7 +92,7 @@ This Go program helps you manage your iRacing paint files by automatically delet
 
     The program will then:
 
-    - Read the `IDS` environment variable.
+    - Read the `iRacing_IDS` environment variable.
     - Locate your iRacing `paint` folder (usually in `~/Documents/iRacing/paint`).
     - Iterate through the files and subdirectories within the `paint` folder.
     - Delete any files whose names do not contain any of the identifiers specified in the `IDS` variable.
