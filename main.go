@@ -16,7 +16,7 @@ func main() {
 	envIds := os.Getenv("iRacing_IDS")
 
 	if envIds == "" {
-		fmt.Println("Couldn't not find specified IDs")
+		fmt.Println("Couldn't find specified IDs")
 		return
 	}
 
